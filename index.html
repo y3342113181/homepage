@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>苏顾个人主页</title>
+    <meta name="keywords" content="苏顾个人引导页,主页,个人引导,引导页,个人主页">
+    <meta name="description" content="苏顾个人引导页是苏顾原创的一款简约开源的个人引导页源码，单页源码，没有后台，没有划水~">
+    <meta name="author" content="苏顾">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        /* 提前加载壁纸 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://bing.img.run/rand_uhd.php");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            filter: blur(5px);
+            /*模糊背景，使内容更清晰*/
+        }
+
+        /* 全局居中布局 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 圆形容器 -->
+        <div class="circle" id="profile-pic" tabindex="0"></div>
+        <!-- 弹窗 -->
+        <div class="popup" id="profile-popup">
+            <!-- 根据个人信息，请自行修改 -->
+            <h2>关于本人</h2>
+            <p><strong>姓名：</strong> 苏顾</p>
+            <p>出生于04年，四川乐山是一名网络爱好者，热爱开发，设计喜欢听音乐，跑步偶尔追追剧吧~JO_OL......</p>
+            <!-- 其他信息 -->
+        </div>
+        <!-- 遮罩层 -->
+        <div class="overlay" id="overlay"></div>
+        <div class="yiyan"></div>
+        <!-- 搜索框 -->
+        <input type="text" class="search-input" placeholder="Search..." style="font-family: iconfont;" id="search-box"
+            spellcheck="false"><br>
+        <!-- 按钮 -->
+        <div class="button"><a href="https://blog.sugu6.top" target="_blank" rel="noopener noreferrer">Blog</a></div>
+        <!-- 更换链接为自己的QQ号https://tool.gljlw.com/qq/?qq=QQ号 -->
+        <div class="button"><a href="https://tool.gljlw.com/qq/?qq=3342113181" target="_blank"
+                rel="noopener noreferrer">QQ</a></div>
+        <div class="button"><a href="https://gitee.com/y3342113181" target="_blank" rel="noopener noreferrer">Gitee</a>
+        </div>
+        <div class="button"><a href="https://space.bilibili.com/421838041?spm_id_from=333.1007.0.0" target="_blank"
+                rel="noopener noreferrer">Bilibili</a></div>
+        <!-- 导航栏 -->
+        <nav>
+            <div class="icon-container" style="margin-left: 0px;">
+                <i class="iconfont icon-boke"></i>
+                <span>Blog</span>
+            </div>
+            <div class="icon-container" style="margin-left: 27px;">
+                <i class="iconfont icon-QQ"></i>
+                <span>QQ</span>
+            </div>
+            <div class="icon-container" style="margin-left: 32px;">
+                <i class="iconfont icon-gitee"></i>
+                <span>Gitee</span>
+            </div>
+            <div class="icon-container" style="margin-left: 35px;">
+                <i class="iconfont icon-bilibili"></i>
+                <span>Bilibili</span>
+            </div>
+        </nav>
+    </div>
+    <footer class="footer-container">
+        <div style="width: 100%;">
+            <div style="text-align: center;">
+                <p class="time">Copyright 2024 <a href="http://www.sugu6.top" target="_blank"
+                        rel="noopener noreferrer">苏顾主页</a>已运行<span id="runtime"></span></p>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="flex: 1; text-align: center;">
+                    <a href="https://music.sugu6.top" target="_blank" rel="noopener noreferrer">音乐播放器</a>
+                </div>
+                <div style="margin-right: 20px;">
+                    <a href="https://img.sugu6.top" target="_blank" rel="noopener noreferrer">个人图床</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 小枫音乐播放器插件 https://music.xfyun.club  必须在<body>标签内才生效-->
+    <!-- 引入小枫樱花js 必须在<body>标签内才生效-->
+    <script src="https://player.xfyun.club/js/yinghua.js"></script>
+    <script>
+        document.getElementById('search-box').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const query = event.target.value;
+                let url;
+
+                // 根据屏幕宽度判断设备类型
+                if (window.innerWidth <= 768) {
+                    // 手机或小屏设备，使用百度搜索
+                    url = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                }
+                else if (window.innerWidth <= 1024) {
+                    // 平板设备，使用百度搜索
+                    url = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                }
+                else if (window.innerWidth <= 1440) {
+                    // 大平板设备，使用百度搜索
+                    url = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}`;
+                }
+                else {
+                    // 默认是谷歌搜索
+                    url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                }
+
+                // 在新标签页中打开搜索结果
+                window.open(url, '_blank');
+
+                // 清空输入框的值
+                event.target.value = '';
+            }
+        });
+        // 定义起始日期（假设起始日期为 2024 年 6 月 1 日）
+        const startDate = new Date('2024-06-01');
+
+        function updateRuntime() {
+            const now = new Date();
+
+            // 计算时间差（单位为毫秒）
+            const timeDifference = now.getTime() - startDate.getTime();
+
+            // 将毫秒转换为天、小时、分钟和秒
+            let seconds = Math.floor(timeDifference / 1000);
+            let minutes = Math.floor(seconds / 60);
+            let hours = Math.floor(minutes / 60);
+            let days = Math.floor(hours / 24);
+
+            seconds %= 60;
+            minutes %= 60;
+            hours %= 24;
+
+            // 将毫秒转换为天
+            // const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            // 构建显示文本
+            const runtimeText = `${days}天${hours}小时${minutes}分钟${seconds}秒`;
+            // 构建显示文本
+            // const runtimeText = `${days}天`;
+
+            // 更新页面显示
+            document.getElementById('runtime').textContent = runtimeText;
+        }
+
+        // 每秒更新一次运行时间
+        setInterval(updateRuntime, 1000);
+
+        // 页面加载时初始化运行时间
+        updateRuntime();
+
+        // 等待 DOM 加载完毕后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            // 获取元素
+            const yiyanDiv = document.querySelector('.yiyan');
+
+            // 使用 fetch API 获取数据
+            fetch('https://api.nnxv.cn/api/yiyan.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // 解析 JSON 格式的响应数据
+                })
+                .then(data => {
+                    // data 包含从 API 返回的数据
+                    console.log(data.content); // 输出内容到控制台
+
+                    // 将 data.content 插入到页面中
+                    if (yiyanDiv) {
+                        yiyanDiv.textContent = data.content;
+                    } else {
+                        console.error('Element with class "yiyan" not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+        });
+        // JavaScript交互
+        document.addEventListener('DOMContentLoaded', function () {
+            var profilePic = document.getElementById('profile-pic');
+            var profilePopup = document.getElementById('profile-popup');
+            var overlay = document.getElementById('overlay');
+
+            // 点击圆形头像显示弹窗和遮罩层
+            profilePic.addEventListener('click', function () {
+                profilePopup.classList.add('open');
+                overlay.classList.add('visible');
+            });
+
+            // 点击遮罩层隐藏弹窗和遮罩层
+            overlay.addEventListener('click', function () {
+                profilePopup.classList.remove('open');
+                overlay.classList.remove('visible');
+            });
+
+            // 添加窗口大小改变时重新定位弹窗的事件
+            window.addEventListener('resize', function () {
+                if (profilePopup.classList.contains('open')) {
+                    centerPopup();
+                }
+            });
+        });
+
+        // 重新定位弹窗到屏幕中央
+        function centerPopup() {
+            var profilePopup = document.getElementById('profile-popup');
+            profilePopup.style.top = '50%';
+            profilePopup.style.left = '50%';
+            profilePopup.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+
+        // 定义全局变量以存储默认音量
+        var globalVolume = 0.5;
+        // 设置音量的函数
+        function setElementVolume(element) {
+            element.volume = globalVolume;
+        }
+        // 设置全局默认音量的函数
+        function setGlobalVolume(volume) {
+            // 确保音量在 0 到 1 的范围内
+            if (volume < 0) volume = 0;
+            if (volume > 1) volume = 1;
+
+            // 更新全局音量变量
+            globalVolume = volume;
+        }
+        // MutationObserver 回调函数，当DOM变化时触发
+        function onDomMutation(mutationsList, observer) {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.tagName === 'AUDIO' || node.tagName === 'VIDEO') {
+                            setElementVolume(node);
+                        }
+                        // 如果有嵌套的音频或视频元素
+                        if (node.querySelectorAll) {
+                            node.querySelectorAll('audio, video').forEach(setElementVolume);
+                        }
+                    });
+                }
+            }
+        }
+        // 创建一个MutationObserver实例并开始监听
+        var observer = new MutationObserver(onDomMutation);
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        // 设置初始全局音量
+        setGlobalVolume(0.2); // 将默认音量设置为20%
+    </script>
+</body>
+
+</html>
